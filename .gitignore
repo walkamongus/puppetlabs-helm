@@ -5,3 +5,8 @@ vendor/
 .vagrant/
 Gemfile.lock
 log
+
+# IntelliJ
+.idea
+*.iml
+
