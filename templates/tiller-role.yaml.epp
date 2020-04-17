@@ -1,6 +1,7 @@
 <%- |
   String $namespace,
   String $service_account,
+  Array[Hash] $rules,
 | -%>
 ---
 kind: Role
@@ -9,9 +10,20 @@ metadata:
   name: tiller-manager
   namespace: <%= $namespace %>
 rules:
-- apiGroups: ["", "extensions", "apps", "networking.k8s.io", "batch", "policy"]
-  resources: ["*"]
-  verbs: ["*"]
+<% $rules.each |Hash $rule| { -%>
+- apiGroups:
+<% $rule['apiGroups'].each |String $apiGroup| { -%>
+  - "<%= $apiGroup %>"
+<% } -%>
+  resources:
+<% $rule['resources'].each |String $resource| { -%>
+  - "<%= $resource %>"
+<% } -%>
+  verbs:
+<% $rule['verbs'].each |String $verb| { -%>
+  - "<%= $verb %>"
+<% } -%>
+<% } -%>
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1

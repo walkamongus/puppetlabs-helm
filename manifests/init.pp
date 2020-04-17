@@ -91,6 +91,14 @@
 # Array of namespaces in which to install tiller
 # Defaults to ['kube-system']
 #
+# [*tiller_rbac_rules*]
+# Array of RBAC rules to apply to the tiller-manager role
+# Defaults to [{
+#   'apiGroups' => ['','extensions','apps','networking.k8s.io','batch','policy'],
+#   'resources' => ['*'],
+#   'verbs'     => ['*'],
+# }]
+#
 # [*tiller_tls*]
 # Enable TLS for tiller in the default init.
 # Defaults to false
@@ -146,6 +154,7 @@ class helm (
   Boolean $skip_refresh                     = $helm::params::skip_refresh,
   Optional[String] $stable_repo_url         = $helm::params::stable_repo_url,
   Array[String] $tiller_namespaces          = $helm::params::tiller_namespaces,
+  Array[Hash] $tiller_rbac_rules            = $helm::params::tiller_rbac_rules,
   Optional[String] $tiller_image            = $helm::params::tiller_image,
   Optional[String] $tiller_tls_cert         = $helm::params::tiller_tls_cert,
   Optional[String] $tiller_tls_key          = $helm::params::tiller_tls_key,

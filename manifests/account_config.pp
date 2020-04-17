@@ -4,6 +4,7 @@ class helm::account_config (
   Array $path                      = $helm::path,
   String $service_account          = $helm::service_account,
   Array[String] $tiller_namespaces = $helm::tiller_namespaces,
+  Array[Hash] $tiller_rbac_rules   = $helm::tiller_rbac_rules,
 ){
 
   if (count($tiller_namespaces) > 1) {
@@ -64,6 +65,7 @@ class helm::account_config (
         content => epp('helm/tiller-role.yaml.epp', {
           'namespace'       => $ns,
           'service_account' => $service_account,
+          'rules'           => $tiller_rbac_rules,
         }),
       }
 

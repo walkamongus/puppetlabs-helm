@@ -253,6 +253,19 @@ The namespaces where tiller is deployed into.
 
 Defaults to `['kube-system']`.
 
+`tiller_rbac_rules`
+
+The RBAC rules to apply to the tiller-manager role.
+Defaults to
+
+```
+[{
+  'apiGroups' => ['','extensions','apps','networking.k8s.io','batch','policy'],
+  'resources' => ['*'],
+  'verbs'     => ['*'],
+}]
+```
+
 `tiller_tls`
 
 Enable TLS for tiller in the default init.
