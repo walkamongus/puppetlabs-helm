@@ -21,6 +21,11 @@ class helm::params {
   $stable_repo_url      = undef
   $tiller_image         = undef
   $tiller_namespaces    = ['kube-system']
+  $tiller_rbac_rules    = [{
+    'apiGroups' => ['','extensions','apps','networking.k8s.io','batch','policy'],
+    'resources' => ['*'],
+    'verbs'     => ['*'],
+  }]
   $tiller_tls           = false
   $tiller_tls_cert      = undef
   $tiller_tls_key       = undef
